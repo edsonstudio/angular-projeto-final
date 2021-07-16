@@ -5,6 +5,7 @@ import { MenuComponent } from './menu/menu.component';
 import { RouterModule } from '@angular/router';
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { CommonModule } from "@angular/common";
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    NgbModule
   ],
   exports: [
     MenuComponent,
