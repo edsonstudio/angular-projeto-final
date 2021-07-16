@@ -5,7 +5,7 @@ import { throwError } from "rxjs";
 export abstract class BaseService {
 
   public LocalStorage = new LocalStorageUtils();
-  protected UrlServiceV1: string = "https://localhost:5001/api/v1/";
+  protected UrlServiceV1: string = "https://backend-angular-final.azurewebsites.net/api/v1/";
 
   protected ObterHeaderJson() {
     return {
