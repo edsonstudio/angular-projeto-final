@@ -16,6 +16,16 @@ export abstract class BaseService {
     };
   }
 
+  protected ObterAuthHeaderJson() {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.LocalStorage.obterTokenUsuario()}`
+      })
+    };
+  }
+
+
   protected extractData(response: any) {
     return response.data || {};
   }
@@ -23,9 +33,9 @@ export abstract class BaseService {
   protected serviceError(response: Response | any) {
     let customError: string[] = [];
 
-    if(response instanceof HttpErrorResponse) {
+    if (response instanceof HttpErrorResponse) {
 
-      if(response.statusText === "Unknown Error") {
+      if (response.statusText === "Unknown Error") {
         customError.push("Ocorreu um erro desconhecido");
         response.error.errors = customError;
       }

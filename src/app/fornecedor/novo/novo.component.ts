@@ -95,12 +95,14 @@ export class NovoComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+
     this.tipoFornecedorForm().valueChanges
-    .subscribe(() => {
-      this.trocarValidacaoDocumento();
-      this.configurarElementosValidacao();
-      this.validarFormulario();
-    });
+      .subscribe(() => {
+        this.trocarValidacaoDocumento();
+        this.configurarElementosValidacao();
+        this.validarFormulario();
+      });
+
     this.configurarElementosValidacao();
   }
 
@@ -163,9 +165,15 @@ export class NovoComponent implements OnInit {
 
   adicionarFornecedor() {
     if (this.fornecedorForm.dirty && this.fornecedorForm.valid) {
-      
+
       this.fornecedor = Object.assign({}, this.fornecedor, this.fornecedorForm.value);
       this.formResult = JSON.stringify(this.fornecedor);
+
+      this.fornecedor.endereco.cep = StringUtils.somenteNumeros(this.fornecedor.endereco.cep);
+      this.fornecedor.documento = StringUtils.somenteNumeros(this.fornecedor.documento);
+
+      // forçando o tipo fornecedor ser serializado como INT
+      this.fornecedor.tipoFornecedor = parseInt(this.fornecedor.tipoFornecedor.toString());
 
       this.fornecedorService.novoFornecedor(this.fornecedor)
         .subscribe(
