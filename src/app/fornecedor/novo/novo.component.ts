@@ -1,3 +1,5 @@
+import { StringUtils } from './../../utils/string-utils';
+import { CepConsulta } from './../models/endereco';
 import { Component, OnInit, ViewChildren, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControlName, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -136,8 +138,32 @@ export class NovoComponent implements OnInit {
     return this.fornecedorForm.get('documento');
   }
 
+  buscarCep(cep: string) {
+    cep = StringUtils.somenteNumeros(cep);
+    if(cep.length < 8) return;
+
+    this.fornecedorService.consultarCep(cep)
+      .subscribe(
+        cepRetorno => this.preencherEnderecoConsulta(cepRetorno),
+        erro => this.errors.push(erro)
+      );
+  }
+
+  preencherEnderecoConsulta(cepConsulta: CepConsulta) {
+    this.fornecedorForm.patchValue({
+      endereco: {
+        logradouro: cepConsulta.logradouro,
+        bairro: cepConsulta.bairro,
+        cep: cepConsulta.cep,
+        cidade: cepConsulta.localidade,
+        estado: cepConsulta.uf
+      }
+    });
+  }
+
   adicionarFornecedor() {
     if (this.fornecedorForm.dirty && this.fornecedorForm.valid) {
+      
       this.fornecedor = Object.assign({}, this.fornecedor, this.fornecedorForm.value);
       this.formResult = JSON.stringify(this.fornecedor);
 

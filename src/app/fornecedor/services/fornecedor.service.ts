@@ -6,6 +6,7 @@ import { catchError } from "rxjs/operators";
 
 import { BaseService } from 'src/app/services/base.service';
 import { Fornecedor } from '../models/fornecedor';
+import { CepConsulta } from "../models/endereco";
 
 @Injectable()
 export class FornecedorService extends BaseService {
@@ -40,5 +41,11 @@ export class FornecedorService extends BaseService {
 
     excluirFornecedor(id: string): Observable<Fornecedor> {
         return new Observable<Fornecedor>();
+    }
+
+    consultarCep(cep: string): Observable<CepConsulta> {
+      return this.http
+        .get<CepConsulta>(`https://viacep.com.br/ws/${cep}/json/`)
+        .pipe(catchError(super.serviceError))
     }
 }
