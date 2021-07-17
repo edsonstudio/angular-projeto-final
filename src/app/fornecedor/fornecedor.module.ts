@@ -12,6 +12,8 @@ import { EditarComponent } from './editar/editar.component';
 import { ExcluirComponent } from './excluir/excluir.component';
 import { DetalhesComponent } from './detalhes/detalhes.component';
 
+import { NgBrazil } from 'ng-brazil';
+import { TextMaskModule } from 'angular2-text-mask';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { DetalhesComponent } from './detalhes/detalhes.component';
     FornecedorRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgBrazil,
+    TextMaskModule
   ],
   providers: [
     FornecedorService
