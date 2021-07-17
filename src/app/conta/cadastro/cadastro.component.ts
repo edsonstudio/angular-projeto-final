@@ -2,7 +2,7 @@ import { ContaService } from './../services/conta.service';
 import { Usuario } from './../models/usuario';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren } from '@angular/core';
 import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
-import { DisplayMessage, GenericValidator, ValidationMessages } from '../utils/generic-form-validation';
+import { DisplayMessage, GenericValidator, ValidationMessages } from '../../utils/generic-form-validation';
 import { CustomValidators } from 'ng2-validation';
 import { Observable, fromEvent, merge } from 'rxjs';
 import { Router } from '@angular/router';

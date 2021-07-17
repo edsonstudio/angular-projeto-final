@@ -1,4 +1,4 @@
-import { LocalStorageUtils } from './../conta/utils/localstorage';
+import { LocalStorageUtils } from '../utils/localstorage';
 import { HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { throwError } from "rxjs";
 import { environment } from 'src/environments/environment';
