@@ -7,13 +7,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 
+// ---------------Validation modules---------------
 // ---------------Components---------------
 // ---------------Services---------------
+// ---------------NGX---------------
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 // ---------------Sub-modules---------------
 import { AppRoutingModule } from './app-routing.module';
 import { NavegacaoModule } from './navegacao/navegacao.module';
-// ---------------Validation modules---------------
 
 @NgModule({
   declarations: [
@@ -23,7 +26,14 @@ import { NavegacaoModule } from './navegacao/navegacao.module';
     BrowserModule,
     AppRoutingModule,
     NavegacaoModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right',
+      progressAnimation: 'decreasing',
+      progressBar: true,
+      closeButton: true
+    }) // ToastrModule added
   ],
   providers: [],
   bootstrap: [AppComponent]
