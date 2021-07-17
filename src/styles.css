@@ -1,9 +1,18 @@
+.main-container {
+  padding-top: 25px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-bottom: 100px;
+  margin-right: auto;
+  margin-left: auto;
+  overflow: hidden;
+}
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
 }
-
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -34,7 +43,6 @@ button.accept-policy {
   font-size: 1rem;
   line-height: inherit;
 }
-
 
 /* Sticky footer styles
 -------------------------------------------------- */
