@@ -6,13 +6,14 @@ import { Observable, fromEvent, merge } from 'rxjs';
 
 import { ToastrService } from 'ngx-toastr';
 import { NgBrazilValidators, MASKS } from 'ng-brazil';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from "ngx-spinner";
 
 import { ValidationMessages, GenericValidator, DisplayMessage } from 'src/app/utils/generic-form-validation';
 import { Fornecedor } from '../models/fornecedor';
 import { CepConsulta, Endereco } from '../models/endereco';
 import { FornecedorService } from '../services/fornecedor.service';
 import { StringUtils } from 'src/app/utils/string-utils';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-editar',
@@ -45,7 +46,8 @@ export class EditarComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private route: ActivatedRoute,
-    private modalService: NgbModal) {
+    private modalService: NgbModal,
+    private spinner: NgxSpinnerService) {
 
     this.validationMessages = {
       nome: {
@@ -107,8 +109,10 @@ export class EditarComponent implements OnInit {
 
     this.preencherForm();
 
+    this.spinner.show();
+
     setTimeout(() => {
-      console.log('Passou pelo preencherForm');
+      this.spinner.hide();
     }, 1000);
   }
 

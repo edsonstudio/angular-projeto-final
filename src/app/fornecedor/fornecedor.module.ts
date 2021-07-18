@@ -15,7 +15,7 @@ import { DetalhesComponent } from './detalhes/detalhes.component';
 import { NgBrazil } from 'ng-brazil';
 import { TextMaskModule } from 'angular2-text-mask';
 import { FornecedorResolve } from './services/fornecedor.resolve';
-
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -33,8 +33,9 @@ import { FornecedorResolve } from './services/fornecedor.resolve';
     ReactiveFormsModule,
     HttpClientModule,
     NgBrazil,
-    TextMaskModule
-  ],
+    TextMaskModule,
+    NgxSpinnerModule
+    ],
   providers: [
     FornecedorService,
     FornecedorResolve
