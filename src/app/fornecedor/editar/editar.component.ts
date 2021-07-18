@@ -44,7 +44,8 @@ export class EditarComponent implements OnInit {
     private fornecedorService: FornecedorService,
     private router: Router,
     private toastr: ToastrService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private modalService: NgbModal) {
 
     this.validationMessages = {
       nome: {
@@ -127,6 +128,17 @@ export class EditarComponent implements OnInit {
     else {
       this.documento().setValidators([Validators.required, NgBrazilValidators.cnpj]);
     }
+
+    this.enderecoForm.patchValue({
+      id: this.fornecedor.endereco.id,
+      logradouro: this.fornecedor.endereco.logradouro,
+      numero: this.fornecedor.endereco.numero,
+      complemento: this.fornecedor.endereco.complemento,
+      bairro: this.fornecedor.endereco.bairro,
+      cep: this.fornecedor.endereco.cep,
+      cidade: this.fornecedor.endereco.cidade,
+      estado: this.fornecedor.endereco.estado
+    });
   }
 
   ngAfterViewInit() {
@@ -199,6 +211,9 @@ export class EditarComponent implements OnInit {
       this.fornecedor = Object.assign({}, this.fornecedor, this.fornecedorForm.value);
       this.fornecedor.documento = StringUtils.somenteNumeros(this.fornecedor.documento);
 
+      // forçando o tipo fornecedor ser serializado como INT
+      this.fornecedor.tipoFornecedor = parseInt(this.fornecedor.tipoFornecedor.toString());
+
       this.fornecedorService.atualizarFornecedor(this.fornecedor)
         .subscribe(
           sucesso => { this.processarSucesso(sucesso) },
@@ -221,5 +236,35 @@ export class EditarComponent implements OnInit {
   processarFalha(fail: any) {
     this.errors = fail.error.errors;
     this.toastr.error('Ocorreu um erro!', 'Opa :(');
+  }
+
+  editarEndereco() {
+    if(this.enderecoForm.dirty && this.enderecoForm.valid) {
+      this.endereco = Object.assign({}, this.endereco, this.enderecoForm.value);
+      this.endereco.cep = StringUtils.somenteNumeros(this.endereco.cep);
+      this.endereco.fornecedorId = this.fornecedor.id;
+
+      this.fornecedorService.atualizarEndereco(this.endereco)
+        .subscribe(
+          () => this.processarSucessoEndereco(this.endereco),
+          falha => { this.processarFalhaEndereco(falha) }
+        );
+    }
+  }
+
+  processarSucessoEndereco(endereco: Endereco) {
+    this.errors = [];
+    this.toastr.success('Endereço atualizado com sucesso.', 'Sucesso!');
+    this.fornecedor.endereco = endereco;
+    this.modalService.dismissAll();
+  }
+
+  processarFalhaEndereco(fail: any) {
+    this.errorsEndereco = fail.error.errors;
+    this.toastr.error('Ocorreu um erro!', 'Vish :O');
+  }
+
+  abrirModal(content) {
+    this.modalService.open(content);
   }
 }

@@ -34,7 +34,8 @@ export class FornecedorService extends BaseService {
         map(super.extractData),
         catchError(super.serviceError));
   }
-
+  
+// novo
   atualizarFornecedor(fornecedor: Fornecedor): Observable<Fornecedor> {
     return this.http
       .put(this.UrlServiceV1 + "fornecedores/" + fornecedor.id, fornecedor, super.ObterAuthHeaderJson())
@@ -43,6 +44,7 @@ export class FornecedorService extends BaseService {
         catchError(super.serviceError));
   }
 
+// novo
   excluirFornecedor(id: string): Observable<Fornecedor> {
     return this.http
       .delete(this.UrlServiceV1 + "fornecedores/" + id, super.ObterAuthHeaderJson())
@@ -51,6 +53,7 @@ export class FornecedorService extends BaseService {
         catchError(super.serviceError));
   }
 
+// novo
   atualizarEndereco(endereco: Endereco): Observable<Endereco> {
     return this.http
       .put(this.UrlServiceV1 + "fornecedores/endereco/" + endereco.id, endereco, super.ObterAuthHeaderJson())
