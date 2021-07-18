@@ -14,6 +14,7 @@ import { DetalhesComponent } from './detalhes/detalhes.component';
 
 import { NgBrazil } from 'ng-brazil';
 import { TextMaskModule } from 'angular2-text-mask';
+import { FornecedorResolve } from './services/fornecedor.resolve';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { TextMaskModule } from 'angular2-text-mask';
     TextMaskModule
   ],
   providers: [
-    FornecedorService
+    FornecedorService,
+    FornecedorResolve
   ]
 })
 export class FornecedorModule { }

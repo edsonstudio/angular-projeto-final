@@ -6,21 +6,14 @@ import { catchError, map } from "rxjs/operators";
 
 import { BaseService } from 'src/app/services/base.service';
 import { Fornecedor } from '../models/fornecedor';
-import { CepConsulta } from "../models/endereco";
+import { CepConsulta, Endereco } from '../models/endereco';
 
 @Injectable()
 export class FornecedorService extends BaseService {
 
   fornecedor: Fornecedor = new Fornecedor();
 
-  constructor(private http: HttpClient) {
-    super()
-
-    this.fornecedor.nome = "Teste Fake"
-    this.fornecedor.documento = "32165498754"
-    this.fornecedor.ativo = true
-    this.fornecedor.tipoFornecedor = 1
-  }
+  constructor(private http: HttpClient) { super() }
 
   obterTodos(): Observable<Fornecedor[]> {
     return this.http
@@ -29,7 +22,9 @@ export class FornecedorService extends BaseService {
   }
 
   obterPorId(id: string): Observable<Fornecedor> {
-    return new Observable<Fornecedor>();
+    return this.http
+      .get<Fornecedor>(this.UrlServiceV1 + "fornecedores/" + id, super.ObterAuthHeaderJson())
+      .pipe(catchError(super.serviceError));
   }
 
   novoFornecedor(fornecedor: Fornecedor): Observable<Fornecedor> {
@@ -41,11 +36,27 @@ export class FornecedorService extends BaseService {
   }
 
   atualizarFornecedor(fornecedor: Fornecedor): Observable<Fornecedor> {
-    return new Observable<Fornecedor>();
+    return this.http
+      .put(this.UrlServiceV1 + "fornecedores/" + fornecedor.id, fornecedor, super.ObterAuthHeaderJson())
+      .pipe(
+        map(super.extractData),
+        catchError(super.serviceError));
   }
 
   excluirFornecedor(id: string): Observable<Fornecedor> {
-    return new Observable<Fornecedor>();
+    return this.http
+      .delete(this.UrlServiceV1 + "fornecedores/" + id, super.ObterAuthHeaderJson())
+      .pipe(
+        map(super.extractData),
+        catchError(super.serviceError));
+  }
+
+  atualizarEndereco(endereco: Endereco): Observable<Endereco> {
+    return this.http
+      .put(this.UrlServiceV1 + "fornecedores/endereco/" + endereco.id, endereco, super.ObterAuthHeaderJson())
+      .pipe(
+        map(super.extractData),
+        catchError(super.serviceError));
   }
 
   consultarCep(cep: string): Observable<CepConsulta> {

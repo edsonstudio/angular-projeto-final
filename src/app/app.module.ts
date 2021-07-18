@@ -27,13 +27,13 @@ import { NavegacaoModule } from './navegacao/navegacao.module';
     AppRoutingModule,
     NavegacaoModule,
     NgbModule,
-    BrowserAnimationsModule, // required animations module
+    BrowserAnimationsModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right',
       progressAnimation: 'decreasing',
       progressBar: true,
       closeButton: true
-    }) // ToastrModule added
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
