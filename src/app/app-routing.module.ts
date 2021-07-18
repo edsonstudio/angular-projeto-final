@@ -1,3 +1,4 @@
+import { AcessoNegadoComponent } from './navegacao/acesso-negado/acesso-negado.component';
 import { NotFoundComponent } from './navegacao/not-found/not-found.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -16,6 +17,7 @@ const routes: Routes = [
     loadChildren: () => import('./fornecedor/fornecedor.module')
       .then(m => m.FornecedorModule)
   },
+  { path: 'acesso-negado', component: AcessoNegadoComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }
 ];

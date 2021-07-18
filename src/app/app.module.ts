@@ -1,11 +1,12 @@
 // ---------------Angular---------------
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 // ---------------Bootstrap---------------
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { AppComponent } from './app.component';
 
 // ---------------Validation modules---------------
 // ---------------Components---------------
@@ -17,6 +18,11 @@ import { ToastrModule } from 'ngx-toastr';
 // ---------------Sub-modules---------------
 import { AppRoutingModule } from './app-routing.module';
 import { NavegacaoModule } from './navegacao/navegacao.module';
+import { ErrorInterceptor } from './services/error.handler.service';
+
+export const httpInterceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+];
 
 @NgModule({
   declarations: [
@@ -33,9 +39,10 @@ import { NavegacaoModule } from './navegacao/navegacao.module';
       progressAnimation: 'decreasing',
       progressBar: true,
       closeButton: true
-    })
+    }),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

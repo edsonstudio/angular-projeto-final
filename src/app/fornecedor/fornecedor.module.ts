@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FornecedorRoutingModule } from './fornecedor.route';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 import { FornecedorAppComponent } from './fornecedor.app.component';
 import { ListaComponent } from './lista/lista.component';
@@ -31,7 +30,6 @@ import { NgxSpinnerModule } from "ngx-spinner";
     FornecedorRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     NgBrazil,
     TextMaskModule,
     NgxSpinnerModule
