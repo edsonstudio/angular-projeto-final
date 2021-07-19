@@ -10,12 +10,14 @@ import { NovoComponent } from './novo/novo.component';
 import { EditarComponent } from './editar/editar.component';
 import { ExcluirComponent } from './excluir/excluir.component';
 import { DetalhesComponent } from './detalhes/detalhes.component';
+import { ListaProdutosComponent } from './produtos/lista-produtos.component';
+
+import { FornecedorResolve } from './services/fornecedor.resolve';
+import { FornecedorGuard } from './services/fornecedor.guard';
 
 import { NgBrazil } from 'ng-brazil';
 import { TextMaskModule } from 'angular2-text-mask';
-import { FornecedorResolve } from './services/fornecedor.resolve';
 import { NgxSpinnerModule } from "ngx-spinner";
-import { FornecedorGuard } from './services/fornecedor.guard';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { FornecedorGuard } from './services/fornecedor.guard';
     EditarComponent,
     ExcluirComponent,
     ListaComponent,
-    NovoComponent
+    NovoComponent,
+    ListaProdutosComponent
   ],
   imports: [
     CommonModule,
