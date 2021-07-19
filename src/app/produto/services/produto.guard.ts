@@ -6,7 +6,7 @@ import { NovoComponent } from '../novo/novo.component';
 
 @Injectable()
 export class ProdutoGuard implements CanActivate, CanDeactivate<NovoComponent> {
-    
+
     localStorageUtils = new LocalStorageUtils();
 
     constructor(private router: Router){}
@@ -14,14 +14,14 @@ export class ProdutoGuard implements CanActivate, CanDeactivate<NovoComponent> {
     canDeactivate(component: NovoComponent) {
         if(component.mudancasNaoSalvas) {
             return window.confirm('Tem certeza que deseja abandonar o preenchimento do formulario?');
-        }        
+        }
         return true
     }
 
     canActivate(routeAc: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         if(!this.localStorageUtils.obterTokenUsuario()){
-            this.router.navigate(['/conta/login/'], { queryParams: { returnUrl: this.router.url }});
-        }  
+            this.router.navigate(['/conta/login/'], { queryParams: { returnUrl: this.router.url }}); //retorna para a Url que o usuario tentava acessar
+        }
 
         let user = this.localStorageUtils.obterUsuario();
 
@@ -33,13 +33,13 @@ export class ProdutoGuard implements CanActivate, CanDeactivate<NovoComponent> {
                 if (!user.claims) {
                     this.navegarAcessoNegado();
                 }
-                
+
                 let userClaims = user.claims.find(x => x.type === claim.nome);
-                
+
                 if(!userClaims){
                     this.navegarAcessoNegado();
                 }
-                
+
                 let valoresClaim = userClaims.value as string;
 
                 if (!valoresClaim.includes(claim.valor)) {
@@ -48,7 +48,7 @@ export class ProdutoGuard implements CanActivate, CanDeactivate<NovoComponent> {
             }
         }
 
-        return true;  
+        return true;
     }
 
     navegarAcessoNegado() {

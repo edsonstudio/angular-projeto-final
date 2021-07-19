@@ -5,7 +5,7 @@ import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from
 import { DisplayMessage, GenericValidator, ValidationMessages } from '../../utils/generic-form-validation';
 import { CustomValidators } from 'ng2-validation';
 import { Observable, fromEvent, merge } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -24,9 +24,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
 
+  returnUrl: string;
+
   constructor(private fb: FormBuilder,
     private contaService: ContaService,
     private router: Router,
+    private route: ActivatedRoute,
     private toastr: ToastrService) {
 
     this.validationMessages = {
@@ -40,6 +43,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       }
     };
 
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'];
     this.genericValidator = new GenericValidator(this.validationMessages);
   }
 
@@ -79,7 +83,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
     let toastr = this.toastr.success('Login efetuado com Sucesso.', 'Seja bem vindo :D');
     if(toastr) {
       toastr.onHidden.subscribe(() => {
-        this.router.navigate(['/home']);
+        this.returnUrl
+        ? this.router.navigate([this.returnUrl])
+        : this.router.navigate(['/home']);
       });
     }
   }
