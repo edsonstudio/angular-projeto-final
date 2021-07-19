@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 export class DetalhesComponent {
 
   produto: Produto;
+  imagens: string = environment.imagensUrl;
 
   constructor(private route: ActivatedRoute) {
 
