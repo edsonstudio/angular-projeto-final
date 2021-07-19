@@ -1,18 +1,17 @@
 import { ContaService } from './../services/conta.service';
 import { Usuario } from './../models/usuario';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren } from '@angular/core';
-import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
-import { DisplayMessage, GenericValidator, ValidationMessages } from '../../utils/generic-form-validation';
+import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
-import { Observable, fromEvent, merge } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { FormBaseComponent } from 'src/app/base-components/form-base.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent extends FormBaseComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
 
@@ -20,9 +19,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
   usuario: Usuario;
 
   errors: any[] = [];
-  validationMessages: ValidationMessages;
-  genericValidator: GenericValidator;
-  displayMessage: DisplayMessage = {};
 
   returnUrl: string;
 
@@ -31,6 +27,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastrService) {
+
+      super();
 
     this.validationMessages = {
       email: {
@@ -44,7 +42,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     };
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'];
-    this.genericValidator = new GenericValidator(this.validationMessages);
+    super.configurarMensagensValidacaoBase(this.validationMessages);
   }
 
   ngOnInit(): void {
@@ -56,12 +54,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    let controlBlurs: Observable<any>[] = this.formInputElements
-      .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
-
-    merge(...controlBlurs).subscribe(() => {
-      this.displayMessage = this.genericValidator.processarMensagens(this.loginForm);
-    });
+    super.configurarValidacaoFormularioBase(this.formInputElements, this.loginForm);
   }
 
   login() {
