@@ -6,7 +6,7 @@ import { HomeComponent } from './navegacao/home/home.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, data: {animation: 'HomePage'}  },
   {
     path: 'conta',
     loadChildren: () => import('./conta/conta.module')
@@ -15,12 +15,12 @@ const routes: Routes = [
   {
     path: 'fornecedores',
     loadChildren: () => import('./fornecedor/fornecedor.module')
-      .then(m => m.FornecedorModule)
+      .then(m => m.FornecedorModule), data: {animation: 'fornecedores'}
   },
   {
     path: 'produtos',
     loadChildren: () => import('./produto/produto.module')
-      .then(m => m.ProdutoModule)
+      .then(m => m.ProdutoModule), data: {animation: 'produtos'}
   },
   { path: 'acesso-negado', component: AcessoNegadoComponent },
   { path: 'not-found', component: NotFoundComponent },
