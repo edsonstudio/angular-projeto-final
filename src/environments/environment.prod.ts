@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrlV1: 'https://dev-io-proj-final.azurewebsites.net/api/v1/',
-  imagensUrl: 'https://dev-io-proj-final.azurewebsites.net/'
+  apiUrlV1: 'https://edson-api.em3soft.com.br/api/v1/',
+  imagensUrl: 'https://edson-api.em3soft.com.br/'
 };
